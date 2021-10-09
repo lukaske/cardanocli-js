@@ -1,5 +1,9 @@
 # cardanocli-js
 
+## Fork Notes:
+
+This is a fork of the original project to make the use suitable for AWS Lambda
+
 ## Overview
 
 This is a library, which wraps the cardano-cli with JavaScript and makes it possible to interact with the cli-commands much faster and more efficient.
