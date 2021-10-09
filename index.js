@@ -133,7 +133,7 @@ class CardanocliJs {
       options.era && (this.era = "--" + options.era + "-era");
       options.network && (this.network = options.network);
       options.dir && (this.dir = options.dir);
-      options.walletDir && (this.walletDir = options.Dir);
+      options.walletDir && (this.walletDir = options.walletDir);
       options.cliPath && (this.cliPath = options.cliPath);
       options.httpProvider && (this.httpProvider = options.httpProvider);
       if (!this.httpProvider && typeof window !== "undefined")
@@ -302,10 +302,10 @@ class CardanocliJs {
       );
       return response.then((res) => res.json());
     }
-    let vkey = `${this.dir}/priv/wallet/${account}/${account}.stake.vkey`;
-    let skey = `${this.dir}/priv/wallet/${account}/${account}.stake.skey`;
+    let vkey = `${this.walletDir}/priv/wallet/${account}/${account}.stake.vkey`;
+    let skey = `${this.walletDir}/priv/wallet/${account}/${account}.stake.skey`;
     fileExists([vkey, skey]);
-    execSync(`mkdir -p ${this.dir}/priv/wallet/${account}`);
+    execSync(`mkdir -p ${this.walletDir}/priv/wallet/${account}`);
     execSync(`${this.cliPath} stake-address key-gen \
                         --verification-key-file ${vkey} \
                         --signing-key-file ${skey}
@@ -327,11 +327,11 @@ class CardanocliJs {
       return response.then((res) => res.text());
     }
     execSync(`${this.cliPath} stake-address build \
-                        --staking-verification-key-file ${this.dir}/priv/wallet/${account}/${account}.stake.vkey \
-                        --out-file ${this.dir}/priv/wallet/${account}/${account}.stake.addr \
+                        --staking-verification-key-file ${this.walletDir}/priv/wallet/${account}/${account}.stake.vkey \
+                        --out-file ${this.walletDir}/priv/wallet/${account}/${account}.stake.addr \
                         --${this.network}
                     `);
-    return `${this.dir}/priv/wallet/${account}/${account}.stake.addr`;
+    return `${this.walletDir}/priv/wallet/${account}/${account}.stake.addr`;
   }
 
   /**
@@ -351,10 +351,10 @@ class CardanocliJs {
       ? `--staking-verification-key-file ${options.stakeVkey}`
       : "";
     const paymentScript = options.paymentScript
-      ? `--payment-script-file ${jsonToPath(this.dir, options.paymentScript)}`
+      ? `--payment-script-file ${jsonToPath(this.walletDir, options.paymentScript)}`
       : "";
     const stakeScript = options.stakeScript
-      ? `--stake-script-file ${jsonToPath(this.dir, options.stakeScript)}`
+      ? `--stake-script-file ${jsonToPath(this.walletDir, options.stakeScript)}`
       : "";
 
     execSync(`${this.cliPath} address build \
@@ -362,10 +362,10 @@ class CardanocliJs {
                     ${stakeVkey} \
                     ${paymentScript} \
                     ${stakeScript} \
-                    --out-file ${this.dir}/priv/wallet/${account}/${account}.payment.addr \
+                    --out-file ${this.walletDir}/priv/wallet/${account}/${account}.payment.addr \
                     --${this.network}
                 `);
-    return `${this.dir}/priv/wallet/${account}/${account}.payment.addr`;
+    return `${this.walletDir}/priv/wallet/${account}/${account}.payment.addr`;
   }
 
   /**
@@ -378,7 +378,7 @@ class CardanocliJs {
       return response.then((res) => res.text());
     }
     return execSync(`${this.cliPath} address key-hash \
-                        --payment-verification-key-file ${this.dir}/priv/wallet/${account}/${account}.payment.vkey \
+                        --payment-verification-key-file ${this.walletDir}/priv/wallet/${account}/${account}.payment.vkey \
                     `)
       .toString()
       .trim();
