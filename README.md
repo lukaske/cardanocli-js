@@ -2,7 +2,7 @@
 
 ## Fork Notes:
 
-This is a fork of the original project to make the use suitable for AWS Lambda
+This is a fork of the original project to make the use suitable for AWS Lambda. The main difference is the introduction of seperate readable (./) and a write-able directories (/tmp) as Lambda can only write in /tmp.
 
 ## Overview
 
