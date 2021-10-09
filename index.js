@@ -110,6 +110,7 @@ class CardanocliJs {
    * @param {path=} options.socketPath - Default: Env Variable
    * @param {path=} options.cliPath - Default: Env Variable
    * @param {path=} options.dir - Default: Working Dir
+   * @param {path=} options.walletDir - Default: Wallet Dir
    * @param {string=} options.era
    * @param {string=} options.network - Default: mainnet
    * @param {string=} options.httpProvider - Optional - Useful when using cli at different location than node or in browser
