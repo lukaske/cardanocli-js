@@ -1259,7 +1259,12 @@ class CardanocliJs {
           method: "POST",
           body: body,
         }).text();
-      } else {
+      } else if (isPath) {
+        return fetch(
+          `${this.httpProvider}/transactionSubmit?filePath=${tx}`
+        ).text();
+      }
+      else {
         return fetch(
           `${this.httpProvider}/transactionSubmit?filePath=${tx}`
         ).then((res) => res.text());
