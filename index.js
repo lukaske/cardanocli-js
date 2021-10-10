@@ -1048,7 +1048,7 @@ class CardanocliJs {
         method: "POST",
         body: JSON.stringify(options),
       });
-      return response.then((res) => res.text());
+      return response.text();
     }
 
     this.queryProtocolParameters();
