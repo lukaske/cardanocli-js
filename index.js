@@ -882,6 +882,16 @@ class CardanocliJs {
       });
       return response.then((res) => res.text());
     }
+    else if (this.httpProvider && typeof window == "undefined") {
+      let response = fetch(`${this.httpProvider}/transactionBuildRaw`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(options),
+      });
+      return response.text();
+    }
     let UID = Math.random().toString(36).substr(2, 9);
     const txInString = txInToString(this.dir, options.txIn);
     const txOutString = txOutToString(options.txOut);
@@ -1061,6 +1071,16 @@ class CardanocliJs {
       });
       return response.then((res) => res.text());
     }
+    else if (this.httpProvider && typeof window == "undefined") {
+      let response = fetch(`${this.httpProvider}/transactionPolicyid`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(script),
+      });
+      return response.text();
+    }
     let UID = Math.random().toString(36).substr(2, 9);
     fs.writeFileSync(
       `${this.dir}/tmp/script_${UID}.json`,
@@ -1118,6 +1138,17 @@ class CardanocliJs {
       });
       return response.then((res) => res.text());
     }
+    if (this.httpProvider && typeof window == "undefined") {
+      let response = fetch(`${this.httpProvider}/transactionSign`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(options),
+      });
+      return response.text();
+    }
+
     const UID = Math.random().toString(36).substr(2, 9);
     const signingKeys = signingKeysToString(options.signingKeys);
     execSync(`${this.cliPath} transaction sign \
