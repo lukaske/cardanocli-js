@@ -1040,6 +1040,17 @@ class CardanocliJs {
       });
       return response.then((res) => res.text());
     }
+    else if (this.httpProvider && typeof window == "undefined") {
+      let response = fetch(`${this.httpProvider}/transactionCalculateMinFee`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(options),
+      });
+      return response.then((res) => res.text());
+    }
+
     this.queryProtocolParameters();
     return parseInt(
       execSync(`${this.cliPath} transaction calculate-min-fee \
