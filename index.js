@@ -1248,9 +1248,9 @@ class CardanocliJs {
    * @param {path | string} tx - Path or Signed Tx File
    * @returns {string} - Transaction Hash
    */
-  transactionSubmit(tx) {
+  transactionSubmit(tx, isPath = true) {
     if (this.httpProvider) {
-      if (typeof window === "undefined") {
+      if (typeof window === "undefined" && isPath) {
         let body = fs.readFileSync(tx).toString();
         return fetch(`${this.httpProvider}/transactionSubmit`, {
           headers: {
