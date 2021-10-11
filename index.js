@@ -24,11 +24,11 @@ require('dotenv');
 const fetchOriginal =
   typeof window !== "undefined" ? window.fetch : require("sync-fetch");
 
-let apikey = ""
+let apiKey = ""
 
 const fetch = (url, object = {}) => {
   if (object.headers){
-    object.headers.MyAuth = apikey
+    object.headers.MyAuth = apiKey
   } 
   else{
     object.headers = {
