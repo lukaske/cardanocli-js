@@ -24,13 +24,15 @@ require('dotenv');
 const fetchOriginal =
   typeof window !== "undefined" ? window.fetch : require("sync-fetch");
 
+let apikey = ""
+
 const fetch = (url, object = {}) => {
   if (object.headers){
-    object.headers.MyAuth = process.env.RESTKEY
+    object.headers.MyAuth = apikey
   } 
   else{
     object.headers = {
-      MyAuth: process.env.RESTKEY
+      MyAuth: apiKey
     }
   }
   return fetchOriginal(url, object)
@@ -127,6 +129,7 @@ class CardanocliJs {
    * @param {path=} options.dir - Default: Working Dir
    * @param {path=} options.walletDir - Default: Wallet Dir
    * @param {string=} options.era
+   * @param {string=} options.apiKey
    * @param {string=} options.network - Default: mainnet
    * @param {string=} options.httpProvider - Optional - Useful when using cli at different location than node or in browser
    */
@@ -137,6 +140,8 @@ class CardanocliJs {
     this.dir = "";
     this.cliPath = "cardano-cli";
     this.walletDir = "";
+    this.apiKey = "";
+
 
     if (options) {
       options.shelleyGenesisPath &&
@@ -148,6 +153,7 @@ class CardanocliJs {
         (process.env["CARDANO_NODE_SOCKET_PATH"] = options.socketPath);
       options.era && (this.era = "--" + options.era + "-era");
       options.network && (this.network = options.network);
+      options.apiKey && (this.apiKey = options.apiKey);
       options.dir && (this.dir = options.dir);
       options.walletDir && (this.walletDir = options.walletDir);
       options.cliPath && (this.cliPath = options.cliPath);
@@ -168,6 +174,8 @@ class CardanocliJs {
         }
       }
     }
+
+    apiKey = this.apiKey
 
     typeof window !== "undefined" || execSync(`mkdir -p ${this.dir}/tmp`);
   }
