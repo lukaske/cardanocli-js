@@ -18,8 +18,23 @@ const {
   withdrawalToString,
   multiAssetToString,
 } = require("./helper");
-const fetch =
+
+require('dotenv');
+
+const fetchOriginal =
   typeof window !== "undefined" ? window.fetch : require("sync-fetch");
+
+const fetch = (url, object = {}) => {
+  if (object.headers){
+    object.headers.MyAuth = process.env.RESTKEY
+  } 
+  else{
+    object.headers = {
+      MyAuth: process.env.RESTKEY
+    }
+  }
+  return fetchOriginal(url, object)
+}
 
 /**
  * @typedef lovelace
