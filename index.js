@@ -465,6 +465,11 @@ class CardanocliJs {
       let response = fetch(`${this.httpProvider}${account}/wallet`);
       return response.then((res) => res.json());
     }
+    if (this.httpProvider && typeof window == "undefined") {
+      let response = fetch(`${this.httpProvider}${account}/wallet`);
+      return response.json();
+    }
+
     let paymentAddr = "No payment keys generated";
     let stakingAddr = "No staking keys generated";
 
