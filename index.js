@@ -1079,7 +1079,7 @@ class CardanocliJs {
       return response.text();
     }
 
-    this.queryProtocolParameters();
+    //this.queryProtocolParameters();
     return parseInt(
       execSync(`${this.cliPath} transaction calculate-min-fee \
                 --tx-body-file ${options.txBody} \
@@ -1087,7 +1087,7 @@ class CardanocliJs {
                 --tx-out-count ${options.txOut.length} \
                 --mainnet \
                 --witness-count ${options.witnessCount} \
-                --protocol-params-file ${this.protocolParametersPath}`)
+                --protocol-params-file ${options.protocolParametersPath}`)
         .toString()
         .replace(/\s+/g, " ")
         .split(" ")[0]
